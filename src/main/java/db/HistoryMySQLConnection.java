@@ -3,7 +3,7 @@ package db;
 
 import entity.Order;
 import org.json.JSONObject;
-import rpc.RpcHelper;
+import rpc.OrderRpcHelper;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +26,7 @@ public class HistoryMySQLConnection extends MySQLConnection {
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()) {
-                Order item = RpcHelper.parseHistoryOrderResultSet(rs);
+                Order item = OrderRpcHelper.parseHistoryOrderResultSet(rs);
                 historyOrder.add(item);
             }
         } catch (SQLException e) {

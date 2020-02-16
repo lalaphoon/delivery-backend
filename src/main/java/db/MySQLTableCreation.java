@@ -79,13 +79,13 @@ public class MySQLTableCreation {
             sql = "INSERT INTO users VALUES('1111', '3229c1097c00d497a0fd282d586be050', 'John', 'Smith', '416-111-1111')";
             statement.executeUpdate(sql);
 
-            sql = "INSERT INTO history VALUES('OR00001', '1111' , 'M4W1W3', 'M4W1W3', 'DR001', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '13.5', '45.00')";
+            sql = "INSERT INTO history VALUES('OR00001', '1111' , 'M4W1W3', 'M4W1W3', 'DR001', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '13.5', '12.00')";
             statement.executeUpdate(sql);
 
-            sql = "INSERT INTO history VALUES('OR00002', '1111' , 'M4W1W3', 'M4W1W3', 'DR001', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '13.5', '45.00')";
+            sql = "INSERT INTO history VALUES('OR00002', '1111' , 'M4W1W3', 'M4W1W3', 'DR010', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '14.5', '45.00')";
             statement.executeUpdate(sql);
 
-            sql = "INSERT INTO history VALUES('OR00003', '1111' , 'M4W1W3', 'M4W1W3', 'DR001', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '13.5', '45.00')";
+            sql = "INSERT INTO history VALUES('OR00003', '1111' , 'M4W1W3', 'M4W1W3', 'DR003', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '24.5', '23.00')";
             statement.executeUpdate(sql);
 
 

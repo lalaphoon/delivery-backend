@@ -12,7 +12,7 @@ import entity.Order;
 import entity.Order.OrderBuilder;
 
 public class MySQLConnection {
-    private Connection conn;
+    protected Connection conn;
 
     public MySQLConnection() {
         try {
@@ -20,6 +20,16 @@ public class MySQLConnection {
             conn = DriverManager.getConnection(MySQLDBUtil.URL);
         } catch(Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void close() {
+        if(conn != null) {
+            try {
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

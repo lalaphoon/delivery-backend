@@ -29,10 +29,20 @@ public class HistoryMySQLConnection extends MySQLConnection {
            // '24.5',
            // '23.00')
 
-           String sql = "INSERT INTO history VALUES('OR00004', '1111' , 'M4W1W3', 'M4W1W3', 'DR003', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '24.5', '23.00')";
-            // Todo : Change this sql to actually read an obj.
+           String sql = "INSERT INTO history VALUES(?, ? , ?, ?, ?, ?, ?, ?, ? )";
+            // Todo : SQL should Allocate a unique item order id to the item instead of using parameter item.
            //statement.executeUpdate(sql);
            PreparedStatement stmt = conn.prepareStatement(sql);
+           stmt.setString(1, item.getOrderId());
+           stmt.setString(2, item.getUserId());
+           stmt.setString(3, item.getFromLoc());
+           stmt.setString(4, item.getToLoc());
+           stmt.setString(5, item.getDroneId());
+           stmt.setString(6, item.getTimeStart());
+           stmt.setString(7, item.getTimeEnd());
+           stmt.setDouble(8, item.getTotalWeight());
+           stmt.setDouble(9, item.getPrice());
+
            stmt.execute();
 
        } catch (SQLException e) {

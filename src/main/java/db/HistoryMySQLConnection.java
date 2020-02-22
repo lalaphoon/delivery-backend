@@ -4,6 +4,7 @@ package db;
 import entity.Order;
 import org.json.JSONObject;
 import rpc.OrderRpcHelper;
+import utility.RandomString;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,10 +31,11 @@ public class HistoryMySQLConnection extends MySQLConnection {
            // '23.00')
 
            String sql = "INSERT INTO history VALUES(?, ? , ?, ?, ?, ?, ?, ?, ? )";
-            // Todo : SQL should Allocate a unique item order id to the item instead of using parameter item.
-           //statement.executeUpdate(sql);
+
            PreparedStatement stmt = conn.prepareStatement(sql);
-           stmt.setString(1, item.getOrderId());
+           String order_id = "OR_"+ RandomString.getAlphaNumericString(15);
+
+           stmt.setString(1, order_id);
            stmt.setString(2, item.getUserId());
            stmt.setString(3, item.getFromLoc());
            stmt.setString(4, item.getToLoc());

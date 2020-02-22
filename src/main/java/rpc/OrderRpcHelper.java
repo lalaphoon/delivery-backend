@@ -10,10 +10,12 @@ import java.sql.SQLException;
 public class OrderRpcHelper {
     public static Order parseHistoryOrder(JSONObject historyOrder) throws JSONException {
         Order.OrderBuilder builder = new Order.OrderBuilder();
-        builder.setOrderId(historyOrder.getString("order_id"));
+        if (historyOrder.has("order_id"))
+            builder.setOrderId(historyOrder.getString("order_id"));
         builder.setUserId(historyOrder.getString("user_id"));
         builder.setFromLoc(historyOrder.getString("location_from"));
         builder.setToLoc(historyOrder.getString("location_to"));
+        if (historyOrder.has("drone_id"))
         builder.setDroneId(historyOrder.getString("drone_id"));
         builder.setTimeStart(historyOrder.getString("time_start"));
         builder.setTimeEnd(historyOrder.getString("time_end"));

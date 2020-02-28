@@ -34,6 +34,7 @@ public class Allocate extends HttpServlet {
             );
 
             obj.put("routes", array);
+            obj.put("order_id", "OR_1234");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -60,6 +61,7 @@ public class Allocate extends HttpServlet {
             );
 
             obj.put("routes", array);
+            obj.put("order_id", "OR_1234");
         } catch (JSONException e) {
             e.printStackTrace();
         }

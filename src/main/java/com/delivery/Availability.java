@@ -43,8 +43,8 @@ public class Availability extends HttpServlet {
             array.put(new JSONObject()
                     .put("station_id","C")
                     .put("station_name" , "Holly Park")
-                    .put("lat", 33.9227)
-                    .put("lon", 118.3165)
+                    .put("lat", 37.4414)
+                    .put("lon", 122.2515)
                     .put("drone", 5)
                     .put("robot", 6)
             );

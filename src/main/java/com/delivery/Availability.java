@@ -26,7 +26,7 @@ public class Availability extends HttpServlet {
                     .put("station_id","A")
                     .put("station_name" , "Sunset Recreation Center")
                     .put("lat", 37.7571)
-                    .put("lon", -122.4866)
+                    .put("lng", -122.4866)
                     .put("drone", 3)
                     .put("robot", 15)
             );
@@ -35,7 +35,7 @@ public class Availability extends HttpServlet {
                     .put("station_id","B")
                     .put("station_name" , "St Mary's Square")
                     .put("lat", 37.7920)
-                    .put("lon", -122.4052)
+                    .put("lng", -122.4052)
                     .put("drone", 4)
                     .put("robot", 2)
             );
@@ -44,7 +44,7 @@ public class Availability extends HttpServlet {
                     .put("station_id","C")
                     .put("station_name" , "Holly Park")
                     .put("lat", 37.4414)
-                    .put("lon", -122.2515)
+                    .put("lng", -122.2515)
                     .put("drone", 5)
                     .put("robot", 6)
             );

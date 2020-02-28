@@ -20,18 +20,18 @@ public class Allocate extends HttpServlet {
         JSONObject obj = new JSONObject();
         try {
             JSONArray route1 = new JSONArray();
-            route1.put(new JSONObject().put("lat",37.7571 ).put("lon", -122.4866));
-            route1.put(new JSONObject().put("lat",37.777630).put("lon", -122.496440));
-            route1.put(new JSONObject().put("lat",37.777340 ).put("lon", -122.410350));
-            route1.put(new JSONObject().put("lat",37.792 ).put("lon", -122.4052 ));
+            route1.put(new JSONObject().put("lat",37.7571 ).put("lng", -122.4866));
+            route1.put(new JSONObject().put("lat",37.777630).put("lng", -122.496440));
+            route1.put(new JSONObject().put("lat",37.777340 ).put("lng", -122.410350));
+            route1.put(new JSONObject().put("lat",37.792 ).put("lng", -122.4052 ));
 
             JSONArray route2 = new JSONArray();
-            route2.put(new JSONObject().put("lat",37.7571 ).put("lon", -122.4866));
-            route2.put(new JSONObject().put("lat",37.792 ).put("lon", -122.4052 ));
+            route2.put(new JSONObject().put("lat",37.7571 ).put("lng", -122.4866));
+            route2.put(new JSONObject().put("lat",37.792 ).put("lng", -122.4052 ));
 
             JSONArray marker = new JSONArray();
-            marker.put(new JSONObject().put("marker_name", "Starting").put("location", new JSONObject().put("lat", 37.777630).put("lon", -122.496440)));
-            marker.put(new JSONObject().put("marker_name", "Destination").put("location", new JSONObject().put("lat", 37.777340).put("lon", -122.410350)));
+            marker.put(new JSONObject().put("marker_name", "Starting").put("location", new JSONObject().put("lat", 37.777630).put("lng", -122.496440)));
+            marker.put(new JSONObject().put("marker_name", "Destination").put("location", new JSONObject().put("lat", 37.777340).put("lng", -122.410350)));
 
 
             array.put(new JSONObject()

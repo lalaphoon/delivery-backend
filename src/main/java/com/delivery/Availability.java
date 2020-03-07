@@ -1,5 +1,6 @@
 package com.delivery;
 
+import db.DistributorMySQLConnection;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,13 +23,23 @@ public class Availability extends HttpServlet {
         JSONArray array = new JSONArray();
         //TODO: make it fetch the real db for checking delivery availiability of each dispatcher station
         try {
+            DistributorMySQLConnection connection = new DistributorMySQLConnection();
+            int a_drone = connection.getDroneCounter("A");
+            int a_robot = connection.getRobotCounter("A");
+            int b_drone = connection.getDroneCounter("B");
+            int b_robot = connection.getRobotCounter("B");
+            int c_drone = connection.getDroneCounter("C");
+            int c_robot = connection.getRobotCounter("C");
+
+            connection.close();
+
             array.put(new JSONObject()
                     .put("station_id","A")
                     .put("station_name" , "Sunset Recreation Center")
                     .put("lat", 37.7571)
                     .put("lng", -122.4866)
-                    .put("drone", 3)
-                    .put("robot", 15)
+                    .put("drone", a_drone)
+                    .put("robot", a_robot)
             );
 
             array.put(new JSONObject()
@@ -36,8 +47,8 @@ public class Availability extends HttpServlet {
                     .put("station_name" , "St Mary's Square")
                     .put("lat", 37.7920)
                     .put("lng", -122.4052)
-                    .put("drone", 4)
-                    .put("robot", 2)
+                    .put("drone", b_drone)
+                    .put("robot", b_robot)
             );
 
             array.put(new JSONObject()
@@ -45,8 +56,8 @@ public class Availability extends HttpServlet {
                     .put("station_name" , "Holly Park")
                     .put("lat", 37.4414)
                     .put("lng", -122.2515)
-                    .put("drone", 5)
-                    .put("robot", 6)
+                    .put("drone", c_drone)
+                    .put("robot", c_robot)
             );
         } catch (JSONException e) {
             e.printStackTrace();

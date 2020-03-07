@@ -30,6 +30,15 @@ public class MySQLTableCreation {
             sql = "DROP TABLE IF EXISTS users";
             statement.executeUpdate(sql);
 
+            sql = "DROP TABLE IF EXISTS A";
+            statement.executeUpdate(sql);
+
+            sql = "DROP TABLE IF EXISTS B";
+            statement.executeUpdate(sql);
+
+            sql = "DROP TABLE IF EXISTS C";
+            statement.executeUpdate(sql);
+
 
             // Step 3 Create new tables
             sql = "CREATE TABLE users ("
@@ -74,6 +83,30 @@ public class MySQLTableCreation {
                     + ")";
             statement.executeUpdate(sql);
 
+            sql = "CREATE TABLE A ("
+                    + "deliver_id VARCHAR(255) NOT NULL,"
+                    + "type VARCHAR(255),"
+                    + "state VARCHAR(255),"
+                    + "PRIMARY KEY (deliver_id)"
+                    + ")";
+            statement.executeUpdate(sql);
+
+            sql = "CREATE TABLE B ("
+                    + "deliver_id VARCHAR(255) NOT NULL,"
+                    + "type VARCHAR(255),"
+                    + "state VARCHAR(255),"
+                    + "PRIMARY KEY (deliver_id)"
+                    + ")";
+            statement.executeUpdate(sql);
+
+            sql = "CREATE TABLE C ("
+                    + "deliver_id VARCHAR(255) NOT NULL,"
+                    + "type VARCHAR(255),"
+                    + "state VARCHAR(255),"
+                    + "PRIMARY KEY (deliver_id)"
+                    + ")";
+            statement.executeUpdate(sql);
+
 
             // Step 4: insert fake user 1111/3229c1097c00d497a0fd282d586be050
             sql = "INSERT INTO users VALUES('1111', '3229c1097c00d497a0fd282d586be050', 'John', 'Smith', '416-111-1111')";
@@ -88,7 +121,33 @@ public class MySQLTableCreation {
             sql = "INSERT INTO history VALUES('OR00003', '1111' , 'M4W1W3', 'M4W1W3', 'DR003', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '24.5', '23.00')";
             statement.executeUpdate(sql);
 
+            sql = "INSERT INTO A VALUES('DRONE_dfjaweifjsf', 'DRONE' , 'free')";
+            statement.executeUpdate(sql);
 
+            sql = "INSERT INTO A VALUES('DRONE_dfjaweasdfa', 'DRONE' , 'free')";
+            statement.executeUpdate(sql);
+
+            sql = "INSERT INTO A VALUES('ROBOT_rdfasdjfjwf', 'ROBOT' , 'free')";
+            statement.executeUpdate(sql);
+
+            sql = "INSERT INTO A VALUES('ROBOT_rdfaasdfafs', 'ROBOT' , 'free')";
+            statement.executeUpdate(sql);
+
+            sql = "INSERT INTO B VALUES('ROBOT_rdfaasghjfs', 'ROBOT' , 'free')";
+            statement.executeUpdate(sql);
+            sql = "INSERT INTO B VALUES('ROBOT_rdfaafgjjfh', 'ROBOT' , 'free')";
+            statement.executeUpdate(sql);
+            sql = "INSERT INTO B VALUES('ROBOT_rdf34tfhhfh', 'ROBOT' , 'free')";
+            statement.executeUpdate(sql);
+            sql = "INSERT INTO B VALUES('DRONE_rdfgghfhjrf', 'DRONE' , 'free')";
+            statement.executeUpdate(sql);
+
+            sql = "INSERT INTO C VALUES('DRONE_rdSDFASDFA', 'DRONE' , 'free')";
+            statement.executeUpdate(sql);
+            sql = "INSERT INTO C VALUES('DRONE_jlkfjgkjeg', 'DRONE' , 'free')";
+            statement.executeUpdate(sql);
+            sql = "INSERT INTO C VALUES('ROBOT_fdgkljskon', 'ROBOT' , 'free')";
+            statement.executeUpdate(sql);
 
             conn.close();
             System.out.println("Import done successfully");

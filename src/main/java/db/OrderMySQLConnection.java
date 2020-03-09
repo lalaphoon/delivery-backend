@@ -31,7 +31,7 @@ public class OrderMySQLConnection extends MySQLConnection {
             // '24.5',
             // '23.00')
 
-            String sql = "INSERT INTO orders VALUES(?, ? , ?, ?, ?, ?, ?, ?, ? )";
+            String sql = "INSERT INTO orders VALUES(?, ? , ?, ?, ?, ?, ?, ? )";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             order_id = "OR_"+ RandomString.getAlphaNumericString(15);
@@ -40,11 +40,10 @@ public class OrderMySQLConnection extends MySQLConnection {
             stmt.setString(2, item.getUserId());
             stmt.setString(3, item.getFromLoc());
             stmt.setString(4, item.getToLoc());
-            stmt.setString(5, item.getDroneId());
+            stmt.setString(5, "");
             stmt.setString(6, item.getTimeStart());
-            stmt.setString(7, item.getTimeEnd());
-            stmt.setDouble(8, item.getTotalWeight());
-            stmt.setDouble(9, item.getPrice());
+            stmt.setDouble(7, item.getTotalWeight());
+            stmt.setDouble(8, item.getPrice());
 
             stmt.execute();
 

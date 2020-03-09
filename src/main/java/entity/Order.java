@@ -7,8 +7,8 @@ public class Order {
     //order_id, user_id, from_location, to_location, drone_id, time_start, time_end, total_weight, price
     private String orderId;
     private String userId;
-    private String fromLoc;
-    private String toLoc;
+    private Location fromLoc;
+    private Location toLoc;
     private String droneId;
     private String timeStart;
     private String timeEnd;
@@ -31,19 +31,19 @@ public class Order {
         this.userId = userId;
     }
 
-    public String getFromLoc() {
-        return fromLoc;
+    public String getFromLocString() {
+        return fromLoc.stringfy();
     }
 
-    public void setFromLoc(String fromLoc) {
+    public void setFromLoc(Location fromLoc) {
         this.fromLoc = fromLoc;
     }
 
-    public String getToLoc() {
-        return toLoc;
+    public String getToLocString() {
+        return toLoc.stringfy();
     }
 
-    public void setToLoc(String toLoc) {
+    public void setToLoc(Location toLoc) {
         this.toLoc = toLoc;
     }
 
@@ -121,8 +121,8 @@ public class Order {
     public static class OrderBuilder {
         private String orderId;
         private String userId;
-        private String fromLoc;
-        private String toLoc;
+        private Location fromLoc;
+        private Location toLoc;
         private String droneId;
         private String timeStart;
         private String timeEnd;
@@ -140,12 +140,24 @@ public class Order {
         }
 
         public OrderBuilder setFromLoc(String fromLoc) {
-            this.fromLoc = fromLoc;
+            JSONObject json = new JSONObject(fromLoc);
+            this.fromLoc = new Location(json);
             return this;
         }
 
-        public OrderBuilder setToLoc(String toLoc) {
-            this.toLoc = toLoc;
+        public OrderBuilder setToLoc(String toLoc){
+            JSONObject json = new JSONObject(toLoc);
+            this.toLoc = new Location(json);
+            return this;
+        }
+
+        public OrderBuilder setFromLoc(JSONObject fromLoc) {
+            this.fromLoc = new Location(fromLoc);
+            return this;
+        }
+
+        public OrderBuilder setToLoc(JSONObject toLoc) {
+            this.toLoc = new Location(toLoc);
             return this;
         }
 

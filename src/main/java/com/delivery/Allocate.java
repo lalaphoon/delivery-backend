@@ -1,9 +1,13 @@
 package com.delivery;
 
+import db.OrderMySQLConnection;
+import entity.Order;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import rpc.OrderRpcHelper;
 import rpc.RpcHelper;
+import utility.TimeStamp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,10 +19,31 @@ import java.io.IOException;
 @WebServlet("/allocate")
 public class Allocate extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
+        JSONObject input = RpcHelper.readJSONObject(request);
+        System.out.println(input);
+
         //TODO: fix it to be real
         JSONArray array = new JSONArray();
         JSONObject obj = new JSONObject();
         try {
+
+            // Step 1: read input and compose a /order object with input
+            //         input contains user_id, location_from, location_to, total_weight
+            //         we should add time_start and price
+            input.put("time_start", TimeStamp.getCurrentTimestamp());
+            //TODO: remove the price
+            input.put("price", 10.0);
+
+
+            OrderMySQLConnection connection = new OrderMySQLConnection();
+            Order order = OrderRpcHelper.parseOngoingOrder(input);
+            connection.insertOrderRecord(order);
+            connection.close();
+
+
+
+
             JSONArray route1 = new JSONArray();
             route1.put(new JSONObject().put("lat",37.7571 ).put("lng", -122.4866));
             route1.put(new JSONObject().put("lat",37.777630).put("lng", -122.496440));

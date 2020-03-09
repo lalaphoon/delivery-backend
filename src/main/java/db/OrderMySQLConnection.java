@@ -38,8 +38,8 @@ public class OrderMySQLConnection extends MySQLConnection {
 
             stmt.setString(1, order_id);
             stmt.setString(2, item.getUserId());
-            stmt.setString(3, item.getFromLoc());
-            stmt.setString(4, item.getToLoc());
+            stmt.setString(3, item.getFromLocString());
+            stmt.setString(4, item.getToLocString());
             stmt.setString(5, "");
             stmt.setString(6, item.getTimeStart());
             stmt.setDouble(7, item.getTotalWeight());

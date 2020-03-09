@@ -4,11 +4,20 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.MessageProperties;
+import org.json.JSONObject;
 
 public class P {
     private final static String QUEUE_NAME = "task_queue";
 
+
+
     public static void main(String[] argv) throws Exception {
+        JSONObject orderJSON = new JSONObject();
+        orderJSON.put("noOfLayers", "2");
+        orderJSON.put("baseMaterial", "mat");
+
+
+
         // 创建连接工厂
         ConnectionFactory factory = new ConnectionFactory();
 //		设置RabbitMQ地址
@@ -24,7 +33,7 @@ public class P {
         //channel.basicPublish("", QUEUE_NAME, null, message.getBytes("UTF-8"));
 
         for(int i = 0 ; i < 5; i++){
-            String message = "Hello World! " + i;
+            String message = orderJSON.toString() + " " + i;
             channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes());
             System.out.println(" [x] Sent '" + message + "'");
         }

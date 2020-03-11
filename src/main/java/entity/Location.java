@@ -7,7 +7,7 @@ public class Location {
     private double lng;
     private String address;
 
-    Location(double lat, double lng, String address) {
+    public Location(double lat, double lng, String address) {
         this.lat = lat;
         this.lng = lng;
         this.address = address;

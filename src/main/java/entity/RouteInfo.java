@@ -1,6 +1,7 @@
 package entity;
 
 import utility.LatLng;
+import utility.PolylineEncoding;
 
 import java.util.List;
 
@@ -22,6 +23,11 @@ public class RouteInfo {
         this.routeData = builder.routeData;
         this.polyline = builder.polyline;
     }
+
+    public List<LatLng> getRouteData() {
+        return PolylineEncoding.decode(this.polyline);
+    }
+
 
     public static class RouteInfoBuilder {
         private String polyline;

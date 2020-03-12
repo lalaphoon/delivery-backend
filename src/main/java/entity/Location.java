@@ -13,7 +13,13 @@ public class Location {
         this.address = address;
     }
 
-    Location(JSONObject obj) {
+    public Location(Location l) {
+        this.lat = l.lat;
+        this.lng = l.lng;
+        this.address = l.address;
+    }
+
+    public Location(JSONObject obj) {
         if (obj.has("lat")){
             this.lat = obj.getDouble("lat");
         }

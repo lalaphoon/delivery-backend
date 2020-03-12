@@ -55,6 +55,10 @@ public class Route {
 
     public List<RouteInfo> getRoutes() { return this.routes; }
 
+    public void setRouteID(Integer i, String id) {
+        this.routes.get(i).setRouteID(id);
+    }
+
     public Route (RouteBuilder builder) {
         this.fromLoc = builder.fromLoc;
         this.toLoc = builder.toLoc;

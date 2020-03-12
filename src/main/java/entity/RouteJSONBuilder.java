@@ -27,7 +27,7 @@ public class RouteJSONBuilder {
             tmp.put("distance", i.getDistance());
             tmp.put("deliver_type", i.getDeliverType());
             tmp.put("available_time", TimeStamp.getCurrentTimestamp()); //TODO: in future, timstamp should be given from data modal
-            tmp.put("route_id", "TEST ROUTE id"); //TODO: change the route id
+            tmp.put("route_id", i.getRouteID());
             tmp.put("usage_time", "1 min"); //TODO: change the usage time
             tmp.put("price", i.getPrice());
 

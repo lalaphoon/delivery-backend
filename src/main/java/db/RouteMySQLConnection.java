@@ -18,6 +18,7 @@ public class RouteMySQLConnection extends MySQLConnection {
 
         try {
             List<RouteInfo> routes = route.getRoutes();
+            int index = 0;
             for (RouteInfo i : routes) {
                 String sql = "INSERT INTO routes VALUES(?, ?, ?, ?)";
 
@@ -31,6 +32,7 @@ public class RouteMySQLConnection extends MySQLConnection {
                 stmt.setString(4, i.getDeliverType());
 
                 stmt.execute();
+                index++;
             }
         } catch (SQLException e) {
             e.printStackTrace();

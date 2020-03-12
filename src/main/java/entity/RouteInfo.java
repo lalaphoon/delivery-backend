@@ -17,7 +17,7 @@ public class RouteInfo {
 
     public void setPolyline(String polyline_points) {this.polyline = polyline_points;}
 
-    public String getPolyline() {
+    public String getEncodedPolyline() {
         return this.polyline;
     }
 

@@ -27,6 +27,9 @@ public class MySQLTableCreation {
             sql = "DROP TABLE IF EXISTS orders"; // on going order
             statement.executeUpdate(sql);
 
+            sql = "DROP TABLE IF EXISTS routes";
+            statement.executeUpdate(sql);
+
             sql = "DROP TABLE IF EXISTS users";
             statement.executeUpdate(sql);
 
@@ -80,6 +83,16 @@ public class MySQLTableCreation {
                     + "price FLOAT,"
                     + "PRIMARY KEY (order_id),"
                     + "FOREIGN KEY (user_id) REFERENCES users(user_id)"
+                    + ")";
+            statement.executeUpdate(sql);
+
+            sql = "CREATE TABLE routes ("
+                    + "route_id VARCHAR(255) NOT NULL,"
+                    + "order_id VARCHAR(255) NOT NULL,"
+                    + "route VARCHAR(255),"
+                    + "type VARCHAR(255),"
+                    + "PRIMARY KEY (route_id),"
+                    + "FOREIGN KEY (order_id) REFERENCES orders(order_id)"
                     + ")";
             statement.executeUpdate(sql);
 

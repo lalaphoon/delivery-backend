@@ -1,6 +1,7 @@
 package com.delivery;
 
 import db.OrderMySQLConnection;
+import db.RouteMySQLConnection;
 import entity.Location;
 import entity.Order;
 import entity.Route;
@@ -23,12 +24,12 @@ import java.io.IOException;
 @WebServlet("/allocate")
 public class Allocate extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        setAccessControlHeaders(response);
         response.setContentType("application/json");
         JSONObject input = RpcHelper.readJSONObject(request);
         System.out.println(input);
 
-        //TODO: fix it to be real
-//        JSONArray array = new JSONArray();
         JSONObject obj = new JSONObject();
         try {
 
@@ -52,6 +53,9 @@ public class Allocate extends HttpServlet {
             connection.close();
 
             // Step 4: insert a list of route data into Route table
+            RouteMySQLConnection rconnection = new RouteMySQLConnection();
+            rconnection.insertRouteRecord(route, orderID);
+            rconnection.close();
 
             // Step 5: return the response result
             obj.put("routes", RouteJSONBuilder.getRouteOptionsResponse(route));

@@ -31,19 +31,14 @@ public class GoogleMapClient {
     public JSONArray findPath(Location origin, Location destination ) {
         String query = String.format("origin=%s,%s&destination=%s,%s&key=%s", origin.getLat(), origin.getLon(), destination.getLat(), destination.getLon(), API_KEY);
         String url = HOST + PATH + "?" + query;
-        System.out.println(url);
 
         StringBuilder responseBody = new StringBuilder();
         try {
 
             HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 
-            System.out.println(connection == null);
-
             connection.setRequestMethod("GET");
             connection.connect();
-            System.out.println("TEst");
-
 
             int responseCode = connection.getResponseCode();
             System.out.println("Sending request to url:" + url);

@@ -109,20 +109,20 @@ public class GoogleMapClient {
         return null;
     }
 
-    public static void main(String [] args) {
-        GoogleMapClient client = new GoogleMapClient();
-        Route routes = client.findPath(
-                new Location(37.8266636,-122.4230122, "A"),
-                new Location(37.7992627,-122.3976732, "B")
-        );
-
-        try {
-            List<RouteInfo> routelist = routes.getRoutes();
-            for (int i  = 0; i < routelist.size(); i++) {
-                System.out.println(routelist.get(i).getRouteData().toString());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String [] args) {
+//        GoogleMapClient client = new GoogleMapClient();
+//        Route routes = client.findPath(
+//                new Location(37.8266636,-122.4230122, "A"),
+//                new Location(37.7992627,-122.3976732, "B")
+//        );
+//
+//        try {
+//            List<RouteInfo> routelist = routes.getRoutes();
+//            for (int i  = 0; i < routelist.size(); i++) {
+//                System.out.println(routelist.get(i).getRouteData().toString());
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

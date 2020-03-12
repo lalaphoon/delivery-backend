@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -24,6 +25,7 @@ import entity.RouteInfo;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import utility.LatLng;
 
 //https://maps.googleapis.com/maps/api/directions/json?origin=37.8266636,-122.4230122&destination=37.7992627,-122.3976732&key=AIzaSyCQd2_s804T25-Xtvm5PndruimLb6pEuY4
 
@@ -75,26 +77,43 @@ public class GoogleMapClient {
                 }
 
                 JSONObject legs = embedded.getJSONObject(0).getJSONArray("legs").getJSONObject(0);
+                Location from = new Location(legs.getJSONObject("start_location"));
+                Location to = new Location(legs.getJSONObject("end_location"));
                 Route finalRoute = new Route.RouteBuilder()
-                        .setFromLoc(new Location(legs.getJSONObject("start_location")))
-                        .setToLoc(new Location(legs.getJSONObject("end_location")))
+                        .setFromLoc(from)
+                        .setToLoc(to)
                         .build();
 
-
-
-                JSONArray steps = legs.getJSONArray("steps");
-
-               List<RouteInfo> routes = new ArrayList<RouteInfo>();
-                //Merge it to Route
-                for (int i = 0; i < steps.length(); i++){
-                    JSONObject tmp = steps.getJSONObject(i);
-                    RouteInfo tmpri = new RouteInfo.RouteInfoBuilder().setDistance(tmp.getJSONObject("distance").getDouble("value"))
-                            .setTime(tmp.getJSONObject("duration").getDouble("value"))
-                            .setPolyline(tmp.getJSONObject("polyline").getString("points"))
+                List<RouteInfo> routes = new ArrayList<>();
+                for (int i = 0; i < embedded.length(); i++){
+                    JSONObject tmp = embedded.getJSONObject(i);
+                    RouteInfo tmpri = new RouteInfo.RouteInfoBuilder()
+                            .setDistance(tmp.getJSONArray("legs").getJSONObject(0).getJSONObject("distance").getDouble("value"))
+                            .setTime(tmp.getJSONArray("legs").getJSONObject(0).getJSONObject("duration").getDouble("value"))
+                            .setPolyline(tmp.getJSONObject("overview_polyline").getString("points"))
                             .setType("ROBOT") //TODO: set enumrate
                             .build();
                     routes.add(tmpri);
                 }
+
+                //Insert a Drone route : TODO: need a better code for this
+                List<LatLng> dr = new ArrayList<>();
+                dr.add(new LatLng(from.getLat(), from.getLon()));
+                dr.add(new LatLng(to.getLat(), to.getLon()));
+                //calculate distance
+                double distance = LatLng.distFrom(
+                        new LatLng(from.getLat(), from.getLon()),
+                        new LatLng(to.getLat(), to.getLon()));
+                //calculate time
+                double time = distance  / 5.0; //TODO: need a better calculation - now in seconds
+
+                RouteInfo drone =  new RouteInfo.RouteInfoBuilder()
+                        .setDistance(distance)
+                        .setTime(time)
+                        .setType("DRONE")
+                        .setRouteData(dr)
+                        .build();
+                routes.add(drone);
 
                 //add routes into route
                 finalRoute.setRoutes(routes);

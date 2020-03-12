@@ -10,7 +10,7 @@ public class RouteInfo {
     private String polyline; //encoded set of LatLng
     private List<LatLng> routeData;
     private double distance;
-    private double time;
+    private double time; //duration
     private String type;
     private String routeID;
     private double price;
@@ -39,9 +39,14 @@ public class RouteInfo {
     public double getDistance() {
         return this.distance;
     }
+    public double getDuration() {return this.time;}
 
     public List<LatLng> getRouteData() {
-        return PolylineEncoding.decode(this.polyline);
+        if (type.equals("ROBOT")) {
+            return PolylineEncoding.decode(this.polyline);
+        } else {
+            return this.routeData;
+        }
     }
 
     public JSONArray getRouteDataJSONArray() {

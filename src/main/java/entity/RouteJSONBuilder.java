@@ -12,7 +12,7 @@ public class RouteJSONBuilder {
         if (type.equals("DRONE")){ //TODO: use enumerate instead of String
             return distance * 0.85;
         } else {
-            return distance * 1.3;
+            return distance * 2.1;
         }
     }
 
@@ -28,7 +28,7 @@ public class RouteJSONBuilder {
             tmp.put("deliver_type", i.getDeliverType());
             tmp.put("available_time", TimeStamp.getCurrentTimestamp()); //TODO: in future, timstamp should be given from data modal
             tmp.put("route_id", i.getRouteID());
-            tmp.put("usage_time", "1 min"); //TODO: change the usage time
+            tmp.put("usage_time", i.getDuration());
             tmp.put("price", i.getPrice());
 
             array.put(tmp);

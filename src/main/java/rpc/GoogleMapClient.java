@@ -69,6 +69,11 @@ public class GoogleMapClient {
             JSONObject obj = new JSONObject(responseBody.toString());
             if (!obj.isNull("routes")) {
                 JSONArray embedded = obj.getJSONArray("routes");
+
+                if(embedded.length() == 0 ) {
+                    return null;
+                }
+
                 JSONObject legs = embedded.getJSONObject(0).getJSONArray("legs").getJSONObject(0);
                 Route finalRoute = new Route.RouteBuilder()
                         .setFromLoc(new Location(legs.getJSONObject("start_location")))
@@ -86,6 +91,7 @@ public class GoogleMapClient {
                     RouteInfo tmpri = new RouteInfo.RouteInfoBuilder().setDistance(tmp.getJSONObject("distance").getDouble("value"))
                             .setTime(tmp.getJSONObject("duration").getDouble("value"))
                             .setPolyline(tmp.getJSONObject("polyline").getString("points"))
+                            .setType("ROBOT") //TODO: set enumrate
                             .build();
                     routes.add(tmpri);
                 }

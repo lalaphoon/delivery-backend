@@ -1,10 +1,14 @@
 package com.delivery;
 
 import db.OrderMySQLConnection;
+import entity.Location;
 import entity.Order;
+import entity.Route;
+import entity.RouteJSONBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import rpc.GoogleMapClient;
 import rpc.OrderRpcHelper;
 import rpc.RpcHelper;
 import utility.TimeStamp;
@@ -24,65 +28,35 @@ public class Allocate extends HttpServlet {
         System.out.println(input);
 
         //TODO: fix it to be real
-        JSONArray array = new JSONArray();
+//        JSONArray array = new JSONArray();
         JSONObject obj = new JSONObject();
         try {
+
+            //Step 0: Create Route obj and generate Route info
+            GoogleMapClient gmc = new GoogleMapClient();
+            Location location_from = new Location(input.getJSONObject("location_from").getDouble("lat"), input.getJSONObject("location_from").getDouble("lng"), "From");
+            Location location_to = new Location(input.getJSONObject("location_to").getDouble("lat"), input.getJSONObject("location_to").getDouble("lng"), "To");
+            Route route = gmc.findPath(location_from, location_to);
 
             // Step 1: read input and compose a /order object with input
             //         input contains user_id, location_from, location_to, total_weight
             //         we should add time_start and price
             input.put("time_start", TimeStamp.getCurrentTimestamp());
             //TODO: remove the price
-            input.put("price", 10.0);
+            input.put("price", 0.0);
 
-
+            // Step 3: insert a new order record into Order table
             OrderMySQLConnection connection = new OrderMySQLConnection();
             Order order = OrderRpcHelper.parseOngoingOrder(input);
-            connection.insertOrderRecord(order);
+            String orderID = connection.insertOrderRecord(order);
             connection.close();
 
+            // Step 4: insert a list of route data into Route table
 
+            // Step 5: return the response result
+            obj.put("routes", RouteJSONBuilder.getRouteOptionsResponse(route));
+            obj.put("order_id", orderID);
 
-
-            JSONArray route1 = new JSONArray();
-            route1.put(new JSONObject().put("lat",37.7571 ).put("lng", -122.4866));
-            route1.put(new JSONObject().put("lat",37.777630).put("lng", -122.496440));
-            route1.put(new JSONObject().put("lat",37.777340 ).put("lng", -122.410350));
-            route1.put(new JSONObject().put("lat",37.792 ).put("lng", -122.4052 ));
-
-            JSONArray route2 = new JSONArray();
-            route2.put(new JSONObject().put("lat",37.7571 ).put("lng", -122.4866));
-            route2.put(new JSONObject().put("lat",37.792 ).put("lng", -122.4052 ));
-
-            JSONArray marker = new JSONArray();
-            marker.put(new JSONObject().put("marker_name", "Starting").put("location", new JSONObject().put("lat", 37.777630).put("lng", -122.496440)));
-            marker.put(new JSONObject().put("marker_name", "Destination").put("location", new JSONObject().put("lat", 37.777340).put("lng", -122.410350)));
-
-
-            array.put(new JSONObject()
-                    .put("route_id","RT_SASjsdf23j")
-                    .put("price" , 98.6)
-                    .put("deliver_type", "DRONE")
-                    .put("available_time", "2019-04-24 18:00:00")
-                    .put("usage_time", "00:15:00")
-                    .put("distance", 534.1)
-                    .put("route", route1)
-            );
-
-
-            array.put(new JSONObject()
-                    .put("route_id","RT_lsjdf242ew")
-                    .put("price" , 54.2)
-                    .put("deliver_type", "ROBOT")
-                    .put("available_time", "2019-04-24 18:00:00")
-                    .put("usage_time", "01:01:12")
-                    .put("distance", 1534.1)
-                    .put("route", route2)
-            );
-
-            obj.put("routes", array);
-            obj.put("order_id", "OR_1234");
-            obj.put("markers", marker);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -114,5 +88,10 @@ public class Allocate extends HttpServlet {
             e.printStackTrace();
         }
         RpcHelper.writeJsonObject(response, obj);
+    }
+
+    private void setAccessControlHeaders(HttpServletResponse resp) {
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "GET");
     }
 }

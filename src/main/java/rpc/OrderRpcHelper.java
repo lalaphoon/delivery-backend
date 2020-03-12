@@ -14,8 +14,8 @@ public class OrderRpcHelper {
         if (historyOrder.has("order_id"))
             builder.setOrderId(historyOrder.getString("order_id"));
         builder.setUserId(historyOrder.getString("user_id"));
-        builder.setFromLoc(historyOrder.getString("location_from"));
-        builder.setToLoc(historyOrder.getString("location_to"));
+        builder.setFromLoc(historyOrder.getJSONObject("location_from"));
+        builder.setToLoc(historyOrder.getJSONObject("location_to"));
         if (historyOrder.has("drone_id"))
             builder.setDroneId(historyOrder.getString("drone_id"));
         builder.setTimeStart(historyOrder.getString("time_start"));
@@ -30,8 +30,8 @@ public class OrderRpcHelper {
         if (historyOrder.has("order_id"))
             builder.setOrderId(historyOrder.getString("order_id"));
         builder.setUserId(historyOrder.getString("user_id"));
-        builder.setFromLoc(historyOrder.getString("location_from"));
-        builder.setToLoc(historyOrder.getString("location_to"));
+        builder.setFromLoc(historyOrder.getJSONObject("location_from"));
+        builder.setToLoc(historyOrder.getJSONObject("location_to"));
         if (historyOrder.has("drone_id"))
         builder.setDroneId(historyOrder.getString("drone_id"));
         builder.setTimeStart(historyOrder.getString("time_start"));

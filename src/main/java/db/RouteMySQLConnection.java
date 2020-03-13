@@ -20,7 +20,7 @@ public class RouteMySQLConnection extends MySQLConnection {
             List<RouteInfo> routes = route.getRoutes();
             int index = 0;
             for (RouteInfo i : routes) {
-                String sql = "INSERT INTO routes VALUES(?, ?, ?, ?)";
+                String sql = "INSERT INTO routes VALUES(?, ?, ?, ?, ?)";
 
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 String route_id = "RT_" + RandomString.getAlphaNumericString(7);
@@ -30,6 +30,7 @@ public class RouteMySQLConnection extends MySQLConnection {
                 stmt.setString(2, orderID);
                 stmt.setString(3, i.getEncodedPolyline());
                 stmt.setString(4, i.getDeliverType());
+                stmt.setDouble(5, i.getPrice());
 
                 stmt.execute();
                 index++;

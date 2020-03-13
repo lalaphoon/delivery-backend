@@ -17,8 +17,14 @@ public class RouteInfo {
 
     public void setPolyline(String polyline_points) {this.polyline = polyline_points;}
 
+    //DRONE - stored List<LatLng>
+    //ROBOT - stored polyline
     public String getEncodedPolyline() {
-        return this.polyline;
+        if (this.type.equals("ROBOT")) { //TODO: need enum for deliver type
+            return this.polyline;
+        } else {
+            return PolylineEncoding.encode(this.routeData);
+        }
     }
 
     public String getRouteID() {

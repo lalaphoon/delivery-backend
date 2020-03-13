@@ -18,19 +18,21 @@ public class MySQLTableCreation {
             }
             // Step 2 Drop tables in case they exist.
             Statement statement = conn.createStatement();
-            String sql = "DROP TABLE IF EXISTS categories";
-            statement.executeUpdate(sql);
 
-            sql = "DROP TABLE IF EXISTS history"; // all orders has been done
+
+            String sql = "SET FOREIGN_KEY_CHECKS = 0";
             statement.executeUpdate(sql);
 
             sql = "DROP TABLE IF EXISTS orders"; // on going order
             statement.executeUpdate(sql);
 
-            sql = "DROP TABLE IF EXISTS routes";
+            sql = "DROP TABLE IF EXISTS history"; // all orders has been done
             statement.executeUpdate(sql);
 
             sql = "DROP TABLE IF EXISTS users";
+            statement.executeUpdate(sql);
+
+            sql = "DROP TABLE IF EXISTS routes";
             statement.executeUpdate(sql);
 
             sql = "DROP TABLE IF EXISTS A";
@@ -40,6 +42,9 @@ public class MySQLTableCreation {
             statement.executeUpdate(sql);
 
             sql = "DROP TABLE IF EXISTS C";
+            statement.executeUpdate(sql);
+
+            sql = "SET FOREIGN_KEY_CHECKS = 1";
             statement.executeUpdate(sql);
 
 
@@ -59,12 +64,13 @@ public class MySQLTableCreation {
                     + "user_id VARCHAR(255),"
                     + "location_from VARCHAR(255),"
                     + "location_to VARCHAR(255),"
-                    + "drone_id VARCHAR(255),"
+                    + "deliver_id VARCHAR(255),"
                    // + "time_start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
                     + "time_start VARCHAR(255),"
-                    + "total_weight FLOAT,"
-                    + "price FLOAT,"
-                    + "PRIMARY KEY (order_id),"
+                    + "total_weight DOUBLE,"
+                    + "price DOUBLE,"
+                    + "route VARCHAR(255),"
+                    + "PRIMARY KEY (order_id), "
                     + "FOREIGN KEY (user_id) REFERENCES users(user_id)"
                     + ")";
             statement.executeUpdate(sql);
@@ -74,13 +80,14 @@ public class MySQLTableCreation {
                     + "user_id VARCHAR(255),"
                     + "location_from VARCHAR(255),"
                     + "location_to VARCHAR(255),"
-                    + "drone_id VARCHAR(255),"
+                    + "deliver_id VARCHAR(255),"
                    // + "time_start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
                    // + "time_end TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
                     + "time_start VARCHAR(255),"
                     + "time_end VARCHAR(255),"
-                    + "total_weight FLOAT,"
-                    + "price FLOAT,"
+                    + "total_weight DOUBLE,"
+                    + "price DOUBLE,"
+                    + "route VARCHAR(255),"
                     + "PRIMARY KEY (order_id),"
                     + "FOREIGN KEY (user_id) REFERENCES users(user_id)"
                     + ")";
@@ -91,6 +98,7 @@ public class MySQLTableCreation {
                     + "order_id VARCHAR(255) NOT NULL,"
                     + "route VARCHAR(255),"
                     + "type VARCHAR(255),"
+                    + "price DOUBLE,"
                     + "PRIMARY KEY (route_id),"
                     + "FOREIGN KEY (order_id) REFERENCES orders(order_id)"
                     + ")";
@@ -125,13 +133,13 @@ public class MySQLTableCreation {
             sql = "INSERT INTO users VALUES('1111', '3229c1097c00d497a0fd282d586be050', 'John', 'Smith', '416-111-1111')";
             statement.executeUpdate(sql);
 
-            sql = "INSERT INTO history VALUES('OR00001', '1111' , 'M4W1W3', 'M4W1W3', 'DR001', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '13.5', '12.00')";
+            sql = "INSERT INTO history VALUES('OR00001', '1111' , 'M4W1W3', 'M4W1W3', 'DR001', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '13.5', '12.00', \'\')";
             statement.executeUpdate(sql);
 
-            sql = "INSERT INTO history VALUES('OR00002', '1111' , 'M4W1W3', 'M4W1W3', 'DR010', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '14.5', '45.00')";
+            sql = "INSERT INTO history VALUES('OR00002', '1111' , 'M4W1W3', 'M4W1W3', 'DR010', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '14.5', '45.00' , \'\')";
             statement.executeUpdate(sql);
 
-            sql = "INSERT INTO history VALUES('OR00003', '1111' , 'M4W1W3', 'M4W1W3', 'DR003', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '24.5', '23.00')";
+            sql = "INSERT INTO history VALUES('OR00003', '1111' , 'M4W1W3', 'M4W1W3', 'DR003', '2005-10-30 T 10:45 UTC', '2005-10-30 T 10:45 UTC', '24.5', '23.00' , \'\')";
             statement.executeUpdate(sql);
 
             sql = "INSERT INTO A VALUES('DRONE_dfjaweifjsf', 'DRONE' , 'free')";

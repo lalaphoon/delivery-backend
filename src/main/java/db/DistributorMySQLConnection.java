@@ -15,7 +15,7 @@ public class DistributorMySQLConnection extends MySQLConnection {
         return "SELECT * FROM " + distriId + " WHERE type = ? ";
     }
 
-    public int getDroneCounter(String distribution) {
+    public int getDroneCounter(String distribution) { //"A", "B", "C"
         if (conn == null) {
             System.err.println("DB connection failed");
             return 0;
@@ -55,6 +55,29 @@ public class DistributorMySQLConnection extends MySQLConnection {
             e.printStackTrace();
         }
         return counter;
+    }
+
+    public String getDeliver(JSONObject routRequirement) {
+        //deliver_type
+        //price
+        //route
+        if (conn == null) {
+            System.err.println("DB connection failed");
+            return "";
+        }
+
+        try {
+            String sql = "SELECT * FROM A WHERE type = ? ";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, routRequirement.getString("deliver_type"));
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()) {
+                return rs.getString("deliver_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

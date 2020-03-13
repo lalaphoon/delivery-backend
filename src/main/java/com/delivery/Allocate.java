@@ -28,7 +28,6 @@ public class Allocate extends HttpServlet {
         setAccessControlHeaders(response);
         response.setContentType("application/json");
         JSONObject input = RpcHelper.readJSONObject(request);
-        System.out.println(input);
 
         JSONObject obj = new JSONObject();
         try {

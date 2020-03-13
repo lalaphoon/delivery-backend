@@ -55,6 +55,27 @@ public class OrderMySQLConnection extends MySQLConnection {
         return order_id ;
     }
 
+    public void updateOrder(String order_id, String deliver_id, double price, String route){
+        if (conn == null) {
+            System.err.println("DB connection failed");
+            return ;
+        }
+
+        try {
+            String sql = "UPDATE orders SET deliver_id = ?, price = ?, route = ? WHERE order_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, deliver_id);
+            stmt.setDouble(2, price);
+            stmt.setString(3, route);
+            stmt.setString(4, order_id);
+
+            stmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();;
+        }
+
+    }
+
 
     //One ongoing order per user id
     public Set<Order> getOngoingOrderByID(String userId) {
